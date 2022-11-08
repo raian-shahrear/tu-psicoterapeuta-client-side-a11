@@ -21,7 +21,7 @@ const Footer = () => {
   return (
     <div className="relative mt-16 bg-deep-purple-accent-400">
       <svg
-        className="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-gray-100"
+        className="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-gray-200"
         preserveAspectRatio="none"
         viewBox="0 0 1440 54"
       >
@@ -30,7 +30,7 @@ const Footer = () => {
           d="M0 22L120 16.7C240 11 480 1.00001 720 0.700012C960 1.00001 1200 11 1320 16.7L1440 22V54H1320C1200 54 960 54 720 54C480 54 240 54 120 54H0V22Z"
         />
       </svg>
-      <div className="px-4 pt-12 bg-gray-100 md:px-24 lg:px-0">
+      <div className="px-4 pt-12 bg-gray-200 md:px-24 lg:px-0">
         <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6 lg:w-11/12 mx-auto">
           <div className="md:max-w-md lg:col-span-2">
             <Link
@@ -126,48 +126,23 @@ const Footer = () => {
             </div>
             <div>
               <p className="font-semibold tracking-wide text-gray-700">
-                Our Services
+                All Services
               </p>
-              <ul className="mt-2 space-y-2">
-                <li>
-                  <a
-                    href="/"
-                    className="text-sm tracking-wide text-gray-600 hover:text-green-700 transition duration-300"
-                  >
+              <ul className="mt-2 space-y-3">
+                <li className="text-sm tracking-wide text-gray-600">
                     Depression & Insomnia
-                  </a>
                 </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-sm tracking-wide text-gray-600 hover:text-green-700 transition duration-300"
-                  >
+                <li className="text-sm tracking-wide text-gray-600">
                     Career Counseling
-                  </a>
                 </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-sm tracking-wide text-gray-600 hover:text-green-700 transition duration-300"
-                  >
+                <li className="text-sm tracking-wide text-gray-600">
                     Relationship Issues
-                  </a>
                 </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-sm tracking-wide text-gray-600 hover:text-green-700 transition duration-300"
-                  >
-                    Child Psychology
-                  </a>
+                <li className="text-sm tracking-wide text-gray-600">
+                  Child Psychology
                 </li>
-                <li>
-                  <a
-                    href="/"
-                    className="text-sm tracking-wide text-gray-600 hover:text-green-700 transition duration-300"
-                  >
-                    Physical Health
-                  </a>
+                <li className="text-sm tracking-wide text-gray-600">
+                  Physical Health
                 </li>
               </ul>
             </div>
@@ -180,7 +155,7 @@ const Footer = () => {
                   Say Good Bye to Anxiety or If Need Any Counselling, Please Subscribe
                 </p>
                 <form onSubmit={handleSubscribe} className="mt-6">
-                  <input type="email" name="email" placeholder="your email" className="w-full py-2 px-3 outline-green-700" />
+                  <input type="email" name="email" placeholder="your email" className="w-full py-2 px-3 outline-green-700 border-transparent" />
                   <input type="submit" value="Subscribe" className="mt-4 bg-green-700 text-white py-2 px-3 cursor-pointer transition duration-300 hover:bg-green-800" />
                 </form>
               </div>
