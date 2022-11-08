@@ -13,20 +13,26 @@ const HeaderOfHome = () => {
               <p className="text-green-700 mt-2">Dr. Amir Ahmad</p>
             </h1>
             <div className="mt-6 mb-8 text-lg sm:mb-12">
-              <p>I am a psychotherapist and my goal is to partner with you to enhance the quality of your life.</p>
-              <p>Whether you are dealing with something specific or are seeking increased satisfaction and balance in life, I’m here to help.</p>
+              <p>
+                I am a psychotherapist and my goal is to partner with you to
+                enhance the quality of your life.
+              </p>
+              <p>
+                Whether you are dealing with something specific or are seeking
+                increased satisfaction and balance in life, I’m here to help.
+              </p>
             </div>
             <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
               <Link
                 rel="noopener noreferrer"
-                href="#"
+                to="/all-services"
                 className="px-8 py-3 text-lg font-semibold bg-green-700 text-white border-2 border-transparent transition duration-300 hover:bg-transparent hover:border-green-700 hover:text-green-700"
               >
                 Visit All Services
               </Link>
             </div>
           </div>
-          <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+          <div className="flex items-center justify-center py-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-[450px]">
             <img
               src={img1}
               alt=""

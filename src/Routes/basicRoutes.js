@@ -8,6 +8,7 @@ import AllServices from '../Pages/MainPages/AllServices';
 import AddService from '../Pages/MainPages/AddService';
 import MyReview from '../Pages/MainPages/MyReview';
 import Blog from "../Pages/MainPages/Blog";
+import ServiceDetails from "../Pages/Others/ServiceDetails";
 
 
 const routes = createBrowserRouter([
@@ -35,6 +36,10 @@ const routes = createBrowserRouter([
       {
         path: '/my-review',
         element: <MyReview />
+      },
+      {
+        path: '/service-details',
+        element: <ServiceDetails />
       },
       {
         path: '/blog',
