@@ -6,8 +6,8 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div>
-      <div className="px-4 py-1 md:px-24 lg:px-0 shadow-lg">
+    <div className="relative">
+      <div className="px-4 py-1 md:px-24 lg:px-0 shadow-lg fixed top-0 w-full z-20 custom-nav">
         <div className="relative grid items-center grid-cols-2 lg:grid-cols-3 lg:w-11/12 mx-auto">
           <ul className="items-center hidden space-x-8 lg:flex">
             <li>
@@ -82,7 +82,7 @@ const NavBar = () => {
                 Tu Psicoterapeuta
               </p>
               <p className="font-semibold -mt-1">
-                <small>Dr. Amir Ahmad</small>
+                <small>Dr. Amir Hossain</small>
               </p>
             </div>
           </Link>
@@ -146,7 +146,7 @@ const NavBar = () => {
                             Tu Psicoterapeuta
                           </p>
                           <p className="font-semibold -mt-1">
-                            <small>Dr. Amir Ahmad</small>
+                            <small>Dr. Amir Hossain</small>
                           </p>
                         </div>
                       </Link>

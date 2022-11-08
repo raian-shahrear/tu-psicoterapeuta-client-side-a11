@@ -7,11 +7,14 @@ import prob3 from "../../../Resources/problems/no-smoking.png";
 import prob4 from "../../../Resources/problems/depression.png";
 import DisplayServices from "../../Others/DisplayServices";
 import Appointment from "./Appointment";
+import Chart1 from "./ServiceCharts/Chart1";
+import Chart2 from "./ServiceCharts/Chart2";
+import Chart3 from "./ServiceCharts/Chart3";
 
 
 const Home = () => {
   return (
-    <div>
+    <div className="mt-20 md:mt-16 lg:mt-6">
       <header>
         <HeaderOfHome />
       </header>
@@ -42,8 +45,8 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 mt-12 lg:mt-20">
-        <h2 className="text-4xl font-semibold text-green-700 mb-6">How I Care</h2>
+      <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 mt-20">
+        <h2 className="text-4xl font-semibold text-green-700 mb-6">Hows The Services</h2>
         <DisplayServices />
         <div className="mt-10">
         <Link
@@ -56,11 +59,32 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 mt-12 lg:mt-16">
-        <h2 className="text-4xl font-semibold text-green-700 mb-2">Request Appointment</h2>
-        <Appointment />
+      <section>
+        
       </section>
 
+      <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 mt-20">
+        <h2 className="text-4xl font-semibold text-green-700 mb-6">How Effective Is Psychotherapy?</h2>
+        <div className="flex justify-evenly flex-wrap">
+          <div>
+            <Chart1 />
+            <p className="text-center text-lg font-semibold">Patients' Satisfaction</p>
+          </div>
+          <div>
+            <Chart2 />
+            <p className="text-center text-lg font-semibold">Quality of Service</p>
+          </div>
+          <div>
+            <Chart3 />
+            <p className="text-center text-lg font-semibold">Recovery So Far</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 my-20">
+        <h2 className="text-4xl font-semibold text-green-700 lg:mb-2 mb-6">Request Appointment</h2>
+        <Appointment />
+      </section>
     </div>
   );
 };

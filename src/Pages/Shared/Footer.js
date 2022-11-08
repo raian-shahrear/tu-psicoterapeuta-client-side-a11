@@ -2,8 +2,8 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../logo.png";
 import { toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
-  import { FaYoutube } from "react-icons/fa";
+import 'react-toastify/dist/ReactToastify.css';
+import { FaYoutube } from "react-icons/fa";
 
 
 const Footer = () => {
@@ -13,7 +13,7 @@ const Footer = () => {
     const email = event.target.email.value;
 
     if(email){
-      toast.success('Thanks for subscribe', {autoClose: 2000})
+      toast.success('Thanks for subscribe!', {autoClose: 2000})
       event.target.reset();
     }
   }
@@ -44,7 +44,7 @@ const Footer = () => {
                   Tu Psicoterapeuta
                 </p>
                 <p className="font-semibold -mt-1">
-                  <small>Dr. Amir Ahmad</small>
+                  <small>Dr. Amir Hossain</small>
                 </p>
               </div>
             </Link>
@@ -152,7 +152,7 @@ const Footer = () => {
               </p>
               <div className="mt-2">
                 <p className="text-sm text-gray-600">
-                  Say Good Bye to Anxiety or If Need Any Counselling, Please Subscribe
+                  Say Good Bye to Anxiety or stay update, Please Subscribe
                 </p>
                 <form onSubmit={handleSubscribe} className="mt-6">
                   <input type="email" name="email" placeholder="your email" className="w-full py-2 px-3 border-transparent focus:ring-1 focus:outline-none focus:ring-green-700" required />

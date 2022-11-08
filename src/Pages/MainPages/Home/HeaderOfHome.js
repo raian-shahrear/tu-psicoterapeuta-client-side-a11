@@ -10,7 +10,7 @@ const HeaderOfHome = () => {
           <div className="flex flex-col justify-center py-16 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
             <h1 className="text-5xl font-bold leading-none sm:text-6xl">
               <p>Hello! I'm your</p>
-              <p className="text-green-700 mt-2">Dr. Amir Ahmad</p>
+              <p className="text-green-700 mt-3">Dr. Amir Hossain</p>
             </h1>
             <div className="mt-6 mb-8 text-lg sm:mb-12">
               <p>

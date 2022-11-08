@@ -18,3 +18,7 @@ code {
 .custom-logo{
   font-family: 'Righteous', cursive;
 }
+
+.custom-nav{
+  background: linear-gradient(hsla(144, 33%, 88%, 0.9), hsla(168, 9%, 89%, 0.9));
+}
