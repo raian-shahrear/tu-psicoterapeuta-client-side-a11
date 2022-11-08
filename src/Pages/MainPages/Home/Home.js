@@ -10,6 +10,7 @@ import Appointment from "./Appointment";
 import Chart1 from "./ServiceCharts/Chart1";
 import Chart2 from "./ServiceCharts/Chart2";
 import Chart3 from "./ServiceCharts/Chart3";
+import MiddleBanner from "./MiddleBanner";
 
 
 const Home = () => {
@@ -59,8 +60,8 @@ const Home = () => {
         </div>
       </section>
 
-      <section>
-        
+      <section className="mt-20">
+        <MiddleBanner />
       </section>
 
       <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 mt-20">
