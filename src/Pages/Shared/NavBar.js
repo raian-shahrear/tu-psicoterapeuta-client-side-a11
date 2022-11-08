@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../logo.png";
 
-
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div>
-      <div className="px-4 py-1 px-8 md:px-24 lg:px-0 shadow-lg">
+      <div className="px-4 py-1 md:px-24 lg:px-0 shadow-lg">
         <div className="relative grid items-center grid-cols-2 lg:grid-cols-3 lg:w-11/12 mx-auto">
           <ul className="items-center hidden space-x-8 lg:flex">
             <li>
@@ -33,6 +32,18 @@ const NavBar = () => {
                 }
               >
                 All Services
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  isActive
+                    ? "tracking-wide text-green-700 font-semibold"
+                    : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                }
+              >
+                Blog
               </NavLink>
             </li>
             <li>
@@ -186,6 +197,18 @@ const NavBar = () => {
                       </li>
                       <li>
                         <NavLink
+                          to="/blog"
+                          className={({ isActive }) =>
+                            isActive
+                              ? "tracking-wide text-green-700 font-semibold"
+                              : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                          }
+                        >
+                          Blog
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
                           to="/add-service"
                           onClick={() => setIsMenuOpen(false)}
                           className={({ isActive }) =>
@@ -210,7 +233,9 @@ const NavBar = () => {
                           My Review
                         </NavLink>
                       </li>
-                      <li><hr className="mb-8" /></li>
+                      <li>
+                        <hr className="mb-8" />
+                      </li>
                       <li>
                         <button>
                           <NavLink
@@ -227,7 +252,10 @@ const NavBar = () => {
                         </button>
                       </li>
                       <li>
-                        <button onClick={() => setIsMenuOpen(false)} className="font-semibold border-2 border-red-700 py-2 px-3 bg-transparent text-red-700 hover:bg-red-700 hover:text-white transition duration-300">
+                        <button
+                          onClick={() => setIsMenuOpen(false)}
+                          className="font-semibold border-2 border-red-700 py-2 px-3 bg-transparent text-red-700 hover:bg-red-700 hover:text-white transition duration-300"
+                        >
                           Sign Out
                         </button>
                       </li>
