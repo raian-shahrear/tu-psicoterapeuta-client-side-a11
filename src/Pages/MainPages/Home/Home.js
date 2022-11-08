@@ -36,7 +36,7 @@ const Home = () => {
           <div className="bg-emerald-100 flex flex-col items-center text-center p-6 rounded-sm">
             <img src={prob3} alt="prob3" className="w-16" />
             <p className="text-xl font-semibold mt-1">Smoking Cessation</p>
-            <p className="text-sm mt-3">Quit smoking permanently with my services.</p>
+            <p className="text-sm mt-3">Quit smoking permanently with my services</p>
           </div>
           <div className="bg-teal-100 flex flex-col items-center text-center p-6 rounded-sm">
             <img src={prob4} alt="prob4" className="w-16" />
