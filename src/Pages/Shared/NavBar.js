@@ -1,75 +1,130 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { UserContext } from "../../Contexts/AuthContext";
 import logo from "../../logo.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOutUser } = useContext(UserContext);
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        toast.warning("Successfully Sign Out!", { autoClose: 2000 });
+      })
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="relative">
       <div className="px-4 py-1 md:px-24 lg:px-0 shadow-lg fixed top-0 w-full z-20 custom-nav">
         <div className="relative grid items-center grid-cols-2 lg:grid-cols-3 lg:w-11/12 mx-auto">
           <ul className="items-center hidden space-x-8 lg:flex">
-            <li>
-              <NavLink
-                to="/home"
-                className={({ isActive }) =>
-                  isActive
-                    ? "tracking-wide text-green-700 font-semibold"
-                    : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/all-services"
-                className={({ isActive }) =>
-                  isActive
-                    ? "tracking-wide text-green-700 font-semibold"
-                    : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                }
-              >
-                All Services
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/blog"
-                className={({ isActive }) =>
-                  isActive
-                    ? "tracking-wide text-green-700 font-semibold"
-                    : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                }
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/add-service"
-                className={({ isActive }) =>
-                  isActive
-                    ? "tracking-wide text-green-700 font-semibold"
-                    : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                }
-              >
-                Add Service
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/my-review"
-                className={({ isActive }) =>
-                  isActive
-                    ? "tracking-wide text-green-700 font-semibold"
-                    : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                }
-              >
-                My Review
-              </NavLink>
-            </li>
+            {!user?.uid ? (
+              <>
+                <li>
+                  <NavLink
+                    to="/home"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "tracking-wide text-green-700 font-semibold"
+                        : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                    }
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/all-services"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "tracking-wide text-green-700 font-semibold"
+                        : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                    }
+                  >
+                    All Services
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/blog"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "tracking-wide text-green-700 font-semibold"
+                        : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                    }
+                  >
+                    Blog
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink
+                    to="/home"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "tracking-wide text-green-700 font-semibold"
+                        : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                    }
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/all-services"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "tracking-wide text-green-700 font-semibold"
+                        : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                    }
+                  >
+                    All Services
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/blog"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "tracking-wide text-green-700 font-semibold"
+                        : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                    }
+                  >
+                    Blog
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/add-service"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "tracking-wide text-green-700 font-semibold"
+                        : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                    }
+                  >
+                    Add Service
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/my-review"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "tracking-wide text-green-700 font-semibold"
+                        : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                    }
+                  >
+                    My Review
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
           <Link
             to="/"
@@ -87,25 +142,47 @@ const NavBar = () => {
             </div>
           </Link>
           <ul className="items-center hidden ml-auto space-x-8 lg:flex">
-            <li>
-              <button>
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "font-semibold border-2 border-transparent py-2 px-3 bg-green-700 text-white"
-                      : "font-semibold border-2 border-green-700 py-2 px-3 bg-transparent text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
-                  }
-                >
-                  Log In
-                </NavLink>
-              </button>
-            </li>
-            <li>
-              <button className="font-semibold border-2 border-red-700 py-2 px-3 bg-transparent text-red-700 hover:bg-red-700 hover:text-white transition duration-300">
-                Sign Out
-              </button>
-            </li>
+            {!user?.uid ? (
+              <li>
+                <button>
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "font-semibold border-2 border-transparent py-2 px-3 bg-green-700 text-white"
+                        : "font-semibold border-2 border-green-700 py-2 px-3 bg-transparent text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
+                    }
+                  >
+                    Log In
+                  </NavLink>
+                </button>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <button
+                    onClick={handleSignOut}
+                    className="font-semibold border-2 border-red-700 py-2 px-3 bg-transparent text-red-700 hover:bg-red-700 hover:text-white transition duration-300"
+                  >
+                    Sign Out
+                  </button>
+                </li>
+                <li>
+                  <Link
+                    to="/user-profile"
+                    className="flex items-center gap-3 opacity-90 hover:opacity-100"
+                  >
+                    {user?.photoURL && (
+                      <img
+                        src={user?.photoURL}
+                        alt="userImg"
+                        className="w-14 h-14 rounded-full"
+                      />
+                    )}
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           <div className="ml-auto lg:hidden">
@@ -169,96 +246,162 @@ const NavBar = () => {
                   </div>
                   <nav>
                     <ul className="space-y-4">
-                      <li>
-                        <NavLink
-                          to="/home"
-                          onClick={() => setIsMenuOpen(false)}
-                          className={({ isActive }) =>
-                            isActive
-                              ? "tracking-wide text-green-700 font-semibold"
-                              : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                          }
-                        >
-                          Home
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/all-services"
-                          onClick={() => setIsMenuOpen(false)}
-                          className={({ isActive }) =>
-                            isActive
-                              ? "tracking-wide text-green-700 font-semibold"
-                              : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                          }
-                        >
-                          All Services
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/blog"
-                          className={({ isActive }) =>
-                            isActive
-                              ? "tracking-wide text-green-700 font-semibold"
-                              : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                          }
-                        >
-                          Blog
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/add-service"
-                          onClick={() => setIsMenuOpen(false)}
-                          className={({ isActive }) =>
-                            isActive
-                              ? "tracking-wide text-green-700 font-semibold"
-                              : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                          }
-                        >
-                          Add Service
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/my-review"
-                          onClick={() => setIsMenuOpen(false)}
-                          className={({ isActive }) =>
-                            isActive
-                              ? "tracking-wide text-green-700 font-semibold"
-                              : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
-                          }
-                        >
-                          My Review
-                        </NavLink>
-                      </li>
+                      {!user?.uid ? (
+                        <>
+                          <li>
+                            <NavLink
+                              to="/home"
+                              onClick={() => setIsMenuOpen(false)}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "tracking-wide text-green-700 font-semibold"
+                                  : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                              }
+                            >
+                              Home
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/all-services"
+                              onClick={() => setIsMenuOpen(false)}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "tracking-wide text-green-700 font-semibold"
+                                  : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                              }
+                            >
+                              All Services
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/blog"
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "tracking-wide text-green-700 font-semibold"
+                                  : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                              }
+                            >
+                              Blog
+                            </NavLink>
+                          </li>
+                        </>
+                      ) : (
+                        <>
+                          <li>
+                            <Link
+                              onClick={() => setIsMenuOpen(false)}
+                              to="/user-profile"
+                              className="flex items-center gap-3 opacity-90 hover:opacity-100"
+                            >
+                              {user?.photoURL && (
+                                <img
+                                  src={user?.photoURL}
+                                  alt="userImg"
+                                  className="w-14 h-14 rounded-full"
+                                />
+                              )}
+                            </Link>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/home"
+                              onClick={() => setIsMenuOpen(false)}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "tracking-wide text-green-700 font-semibold"
+                                  : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                              }
+                            >
+                              Home
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/all-services"
+                              onClick={() => setIsMenuOpen(false)}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "tracking-wide text-green-700 font-semibold"
+                                  : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                              }
+                            >
+                              All Services
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/blog"
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "tracking-wide text-green-700 font-semibold"
+                                  : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                              }
+                            >
+                              Blog
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/add-service"
+                              onClick={() => setIsMenuOpen(false)}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "tracking-wide text-green-700 font-semibold"
+                                  : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                              }
+                            >
+                              Add Service
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/my-review"
+                              onClick={() => setIsMenuOpen(false)}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "tracking-wide text-green-700 font-semibold"
+                                  : "font-semibold tracking-wide text-gray-700 hover:text-green-700 transition duration-300"
+                              }
+                            >
+                              My Review
+                            </NavLink>
+                          </li>
+                        </>
+                      )}
                       <li>
                         <hr className="mb-8" />
                       </li>
-                      <li>
-                        <button>
-                          <NavLink
-                            to="/login"
-                            onClick={() => setIsMenuOpen(false)}
-                            className={({ isActive }) =>
-                              isActive
-                                ? "font-semibold border-2 border-transparent py-2 px-3 bg-green-700 text-white"
-                                : "font-semibold border-2 border-green-700 py-2 px-3 bg-transparent text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
-                            }
+                      {!user?.uid ? (
+                        <li>
+                          <button>
+                            <NavLink
+                              to="/login"
+                              onClick={() => setIsMenuOpen(false)}
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "font-semibold border-2 border-transparent py-2 px-3 bg-green-700 text-white"
+                                  : "font-semibold border-2 border-green-700 py-2 px-3 bg-transparent text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
+                              }
+                            >
+                              Log In
+                            </NavLink>
+                          </button>
+                        </li>
+                      ) : (
+                        <li>
+                          <button
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              handleSignOut();
+                            }}
+                            className="font-semibold border-2 border-red-700 py-2 px-3 bg-transparent text-red-700 hover:bg-red-700 hover:text-white transition duration-300"
                           >
-                            Log In
-                          </NavLink>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          onClick={() => setIsMenuOpen(false)}
-                          className="font-semibold border-2 border-red-700 py-2 px-3 bg-transparent text-red-700 hover:bg-red-700 hover:text-white transition duration-300"
-                        >
-                          Sign Out
-                        </button>
-                      </li>
+                            Sign Out
+                          </button>
+                        </li>
+                      )}
                     </ul>
                   </nav>
                 </div>

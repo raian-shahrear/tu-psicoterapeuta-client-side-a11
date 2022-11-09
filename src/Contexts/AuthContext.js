@@ -1,8 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, updateProfile, onAuthStateChanged, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 import app from '../Firebase/firebase.config'
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 const auth = getAuth(app);
@@ -45,10 +43,8 @@ const AuthContext = ({children}) => {
   // get the currently logged in user
   useEffect( ()=>{
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      if(currentUser){
-        setUser(currentUser);
-        setLoading(false);
-      }
+      setUser(currentUser);
+      setLoading(false);
     })
     return () => {
       unsubscribe();
@@ -70,11 +66,7 @@ const AuthContext = ({children}) => {
   // signOut user
   const signOutUser = () => {
     setLoading(true);
-    signOut(auth)
-    .then(()=>{
-      toast.warning('Successfully Sign Out!', {autoClose: 2000});
-    })
-    .catch(err => console.error(err))
+    return signOut(auth);
   }
 
   const authInfo = {user, loading, createUser, updateUser, signInUser, resetPassword, googleUser, facebookUser, signOutUser};

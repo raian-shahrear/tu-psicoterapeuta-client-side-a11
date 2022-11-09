@@ -10,7 +10,7 @@ const Login = () => {
     useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Login user
   const handleLogin = (event) => {
