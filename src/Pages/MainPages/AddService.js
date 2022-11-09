@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddService = () => {
   const handleAddService = (event) => {
@@ -19,15 +21,33 @@ const AddService = () => {
       serviceRating: rating,
       serviceMedium: medium,
       serviceDuration: duration,
-      serviceDetails: details
-    }
-    
-    
+      serviceDetails: details,
+    };
+
+    fetch("http://localhost:5000/service", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(service),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data.acknowledged) {
+          toast.success("Service is added successfully!", { autoClose: 2000 });
+          form.reset();
+        }
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+      });
   };
 
   return (
     <div className="mt-32 mb-24 lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0">
-      <h2 className="text-4xl font-semibold text-green-700 mb-6">Add A Service</h2>
+      <h2 className="text-4xl font-semibold text-green-700 mb-6">
+        Add A Service
+      </h2>
       <section className="text-gray-700">
         <form
           onSubmit={handleAddService}
