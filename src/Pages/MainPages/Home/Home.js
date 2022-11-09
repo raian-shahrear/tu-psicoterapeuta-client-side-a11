@@ -15,7 +15,7 @@ import MiddleBanner from "./MiddleBanner";
 
 const Home = () => {
   return (
-    <div className="mt-20 md:mt-16 lg:mt-6">
+    <div className="mt-20 md:mt-16 lg:mt-6 mb-24">
       <header>
         <HeaderOfHome />
       </header>
@@ -82,7 +82,7 @@ const Home = () => {
         <MiddleBanner />
       </section>
 
-      <section id="appointment" className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 my-20">
+      <section id="appointment" className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 mt-20">
         <h2 className="text-4xl font-semibold text-green-700 lg:mb-2 mb-6">Request Appointment</h2>
         <Appointment />
       </section>

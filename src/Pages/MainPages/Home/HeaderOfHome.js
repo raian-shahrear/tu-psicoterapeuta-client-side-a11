@@ -28,7 +28,7 @@ const HeaderOfHome = () => {
                 href="#appointment"
                 className="px-8 py-3 text-lg font-semibold bg-green-700 text-white border-2 border-transparent transition duration-300 hover:bg-transparent hover:border-green-700 hover:text-green-700"
               >
-                Book Appointment
+                Book An Appointment
               </a>
             </div>
           </div>

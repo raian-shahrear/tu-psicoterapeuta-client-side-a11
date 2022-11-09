@@ -1,10 +1,10 @@
 import React from 'react';
-import { Cell, Pie, PieChart } from 'recharts';
+import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
 const Chart1 = () => {
   const data = [
-    { name: "Group A", value: 22 },
-    { name: "Group B", value: 78 },
+    { name: "On Progress", value: 22 },
+    { name: "Recovered", value: 78 },
   ];
   
   const COLORS = ["#334155", "#b91c1c"];
@@ -51,6 +51,7 @@ const Chart1 = () => {
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
+      <Tooltip />
     </PieChart>
   );
 };

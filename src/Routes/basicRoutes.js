@@ -7,7 +7,7 @@ import SignUP from '../Pages/MainPages/SignUp';
 import AllServices from '../Pages/MainPages/AllServices';
 import AddService from '../Pages/MainPages/AddService';
 import MyReview from '../Pages/MainPages/MyReview';
-import Blog from "../Pages/MainPages/Blog";
+import Blog from "../Pages/MainPages/Blog/Blog";
 import ServiceDetails from "../Pages/Others/ServiceDetails";
 
 
