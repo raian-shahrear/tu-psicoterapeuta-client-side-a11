@@ -1,33 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 
-const DisplayServices = () => {
+const DisplayServices = ({service}) => {
+  const {_id, serviceName, serviceImg, servicePrice, serviceRating, serviceMedium, serviceDuration, serviceDetails} = service;
+
   return (
     <div>
-      <div className="max-w-sm bg-white rounded-sm border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <img
-            className="rounded-t-lg"
-            src="/docs/images/blog/image-1.jpg"
-            alt=""
-          />
-        </a>
+      <div className="bg-white rounded-sm border border-gray-200 shadow-md">
+        <img
+          className="rounded-t-sm h-96 w-full"
+          src={serviceImg}
+          alt=""
+        />
         <div className="p-5">
-          <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
-            </h5>
-          </a>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Here are the biggest enterprise technology acquisitions of 2021 so
-            far, in reverse chronological order.
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+            {serviceName}
+          </h5>
+          <p className="mb-3 font-medium text-gray-700">
+            {serviceDetails.length > 100 ? serviceDetails.slice(0, 99)+"..." : serviceDetails}
           </p>
-          <a
-            href="/service-details"
+          <div className="flex justify-between mb-6">
+            <p className="font-semibold text-lg">Price: {servicePrice}</p>
+            <p className="font-semibold text-lg text-yellow-400 flex items-center gap-1">
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStar />
+              <FaStarHalfAlt />
+              <span className="ml-2">{serviceRating}</span>
+            </p>
+          </div>
+          <Link
+            to={`/service-details/${_id}`}
             className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-green-700 border-2 border-green-700 bg-transparent hover:bg-green-700 hover:text-white hover:border-transparent"
           >
-            Read more
+            See Details
             <svg
               aria-hidden="true"
               className="ml-2 -mr-1 w-4 h-4"
@@ -41,7 +50,7 @@ const DisplayServices = () => {
                 clipRule="evenodd"
               ></path>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

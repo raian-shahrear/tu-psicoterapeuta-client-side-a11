@@ -33,7 +33,7 @@ const AddService = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.data.acknowledged) {
+        if(data.data.acknowledged) {
           toast.success("Service is added successfully!", { autoClose: 2000 });
           form.reset();
         }
