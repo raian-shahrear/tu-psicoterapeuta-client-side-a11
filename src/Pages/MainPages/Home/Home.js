@@ -53,15 +53,11 @@ const Home = () => {
         <Link
                 rel="noopener noreferrer"
                 to="/all-services"
-                className="px-8 py-3 text-lg font-semibold bg-green-700 text-white border-2 transition duration-300 hover:bg-green-800"
+                className="px-8 py-2 bg-green-700 font-medium text-white border-2 transition duration-300 hover:bg-green-800"
               >
                 View All
               </Link>
         </div>
-      </section>
-
-      <section className="mt-20">
-        <MiddleBanner />
       </section>
 
       <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 mt-20">
@@ -82,7 +78,11 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 my-20">
+      <section className="mt-20">
+        <MiddleBanner />
+      </section>
+
+      <section id="appointment" className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 my-20">
         <h2 className="text-4xl font-semibold text-green-700 lg:mb-2 mb-6">Request Appointment</h2>
         <Appointment />
       </section>

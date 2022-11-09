@@ -155,7 +155,7 @@ const Footer = () => {
                   Say Good Bye to Anxiety or stay update, Please Subscribe
                 </p>
                 <form onSubmit={handleSubscribe} className="mt-6">
-                  <input type="email" name="email" placeholder="your email" className="w-full py-2 px-3 border-transparent focus:ring-1 focus:outline-none focus:ring-green-700" required />
+                  <input type="email" name="email" placeholder="your email" className="bg-white border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 block w-full p-2.5" required />
                   <input type="submit" value="Subscribe" className="mt-4 bg-green-700 text-white py-2 px-3 cursor-pointer transition duration-300 hover:bg-green-800" />
                 </form>
               </div>

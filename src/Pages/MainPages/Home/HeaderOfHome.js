@@ -23,13 +23,13 @@ const HeaderOfHome = () => {
               </p>
             </div>
             <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-              <Link
+              <a
                 rel="noopener noreferrer"
-                to="/all-services"
+                href="#appointment"
                 className="px-8 py-3 text-lg font-semibold bg-green-700 text-white border-2 border-transparent transition duration-300 hover:bg-transparent hover:border-green-700 hover:text-green-700"
               >
-                Visit All Services
-              </Link>
+                Book Appointment
+              </a>
             </div>
           </div>
           <div className="flex items-center justify-center py-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-[450px]">

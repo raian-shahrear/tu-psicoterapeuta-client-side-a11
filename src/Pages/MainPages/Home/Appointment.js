@@ -37,7 +37,7 @@ const Appointment = () => {
                   type="text"
                   name="name"
                   placeholder="name"
-                  className="w-full py-2 px-3 bg-gray-200 border-transparent focus:ring-1 focus:outline-none focus:ring-green-700"
+                  className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
                 />
               </div>
@@ -50,7 +50,7 @@ const Appointment = () => {
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="w-full py-2 px-3 bg-gray-200 border-transparent focus:ring-1 focus:outline-none focus:ring-green-700"
+                  className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
                 />
               </div>
@@ -62,8 +62,8 @@ const Appointment = () => {
                   id="phone"
                   name="phone"
                   type="text"
-                  placeholder="+880**********"
-                  className="w-full py-2 px-3 bg-gray-200 border-transparent focus:ring-1 focus:outline-none focus:ring-green-700"
+                  placeholder="+880••••••••••"
+                  className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
                 />
               </div>
@@ -75,7 +75,7 @@ const Appointment = () => {
                   id="date"
                   type="date"
                   name="date"
-                  className="w-full py-2 px-3 bg-gray-200 border-transparent focus:ring-1 focus:outline-none focus:ring-green-700"
+                  className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
                 />
               </div>
@@ -88,7 +88,7 @@ const Appointment = () => {
                   type="text"
                   name="message"
                   placeholder="your message..."
-                  className="w-full h-32 py-2 px-3 bg-gray-200 border-transparent focus:ring-1 focus:outline-none focus:ring-green-700"
+                  className="h-32 bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
                 />
               </div>
@@ -97,7 +97,7 @@ const Appointment = () => {
               <input
                 type="submit"
                 value="Book Appointment"
-                className="bg-green-700 text-white py-2 px-3 cursor-pointer transition duration-300 hover:bg-green-800"
+                className="bg-green-700 text-white font-medium py-2 px-3 cursor-pointer transition duration-300 hover:bg-green-800"
               />
             </div>
           </fieldset>
