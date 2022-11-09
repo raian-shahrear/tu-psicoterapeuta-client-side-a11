@@ -6,9 +6,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const {signInUser, resetPassword, googleUser, facebookUser} = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [email, setEmail] = useState('');
+  const { signInUser, resetPassword, googleUser, facebookUser } =
+    useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   // Login user
@@ -19,43 +20,84 @@ const Login = () => {
     const password = form.password.value;
 
     signInUser(email, password)
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-      form.reset();
-      setErrorMessage('');
-      // navigate(from, {replace: true});
-      toast.success("Successfully Log in!!!", {autoClose: 2000});
-    })
-    .catch(err => {
-      console.error(err);
-      setErrorMessage(err.message);
-    })
-  }
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset();
+        setErrorMessage("");
+        // navigate(from, {replace: true});
+        toast.success("Successfully Log in!!!", { autoClose: 2000 });
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMessage(err.message);
+      });
+  };
 
   // reset password
   const handleResetPass = () => {
-    if(email){
+    if (email) {
       resetPassword(email)
-      .then(() => {
-        alert("Please check your email to reset password!!!");
-        setErrorMessage('');
+        .then(() => {
+          alert("Please check your email to reset password!!!");
+          setErrorMessage("");
+        })
+        .catch((err) => {
+          console.error(err);
+          setErrorMessage(err.message);
+        });
+    } else {
+      setErrorMessage("Please provide an valid email");
+    }
+  };
+
+  // add google user
+  const handleGoogleUser = () => {
+    googleUser()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setErrorMessage("");
+        // navigate(from, {replace: true});
+        toast.success(
+          "Account has been registered successfully through Google!!!",
+          {
+            autoClose: 2000,
+          }
+        );
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         setErrorMessage(err.message);
-      })
-    }else{
-      setErrorMessage('Please provide an email');
-    }
-  } 
+      });
+  };
 
-  console.log(email)
+  // add facebook user
+  const handleFacebookUser = () => {
+    facebookUser()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setErrorMessage("");
+        // navigate(from, {replace: true});
+        toast.success(
+          "Account has been registered successfully through Facebook!!!",
+          {
+            autoClose: 2000,
+          }
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMessage(err.message);
+      });
+  };
+
   return (
     <div className="mt-36 mb-24 flex justify-center">
-      <div class="w-96 bg-white rounded-sm shadow-xl p-4 sm:p-6 md:p-8">
+      <div className="w-96 bg-white rounded-sm shadow-xl p-4 sm:p-6 md:p-8">
         <form onSubmit={handleLogin}>
-          <h5 class="text-2xl text-center font-semibold text-green-700 mb-4">
+          <h5 className="text-2xl text-center font-semibold text-green-700 mb-4">
             Log in to the website
           </h5>
           <div>
@@ -67,25 +109,25 @@ const Login = () => {
           </div>
           <div className="mb-4">
             <label
-              for="email"
-              class="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Your email <span className="text-red-700">*</span>
             </label>
             <input
-              onChange={(event)=> setEmail(event.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
               type="email"
               name="email"
               id="email"
-              class="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
+              className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
               placeholder="valid email"
               required
             />
           </div>
           <div className="mb-1">
             <label
-              for="password"
-              class="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Your password <span className="text-red-700">*</span>
             </label>
@@ -94,7 +136,7 @@ const Login = () => {
               name="password"
               id="password"
               placeholder="******"
-              class="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
+              className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
               required
             />
           </div>
@@ -102,14 +144,14 @@ const Login = () => {
             <button
               onClick={handleResetPass}
               type="button"
-              class="text-sm font-medium text-green-700 hover:text-gray-500 hover:underline"
+              className="text-sm font-medium text-green-700 hover:text-gray-500 hover:underline"
             >
               Lost Password?
             </button>
           </div>
           <button
             type="submit"
-            class="w-full text-white bg-green-700 hover:bg-green-800 transition duration-300 font-medium px-3 py-2 text-center"
+            className="w-full text-white bg-green-700 hover:bg-green-800 transition duration-300 font-medium px-3 py-2 text-center"
           >
             Login
           </button>
@@ -122,19 +164,27 @@ const Login = () => {
             <div className="flex-1 h-px sm:w-16 bg-gray-400"></div>
           </div>
           <div className="flex justify-center space-x-4">
-            <button aria-label="Log in with Google" className="p-3 text-xl text-gray-900 hover:text-green-700">
+            <button
+              onClick={handleGoogleUser}
+              aria-label="Log in with Google"
+              className="p-3 text-xl text-gray-900 hover:text-green-700"
+            >
               <FaGoogle />
             </button>
-            <button aria-label="Log in with Facebook" className="p-3 text-xl text-gray-900 hover:text-green-700">
+            <button
+              onClick={handleFacebookUser}
+              aria-label="Log in with Facebook"
+              className="p-3 text-xl text-gray-900 hover:text-green-700"
+            >
               <FaFacebookF />
             </button>
           </div>
 
-          <div class="text-sm font-medium text-gray-900 mt-4 text-center">
+          <div className="text-sm font-medium text-gray-900 mt-4 text-center">
             Not registered?{" "}
             <Link
               to="/signup"
-              class="text-sm font-medium text-green-700 hover:text-gray-500 hover:underline"
+              className="text-sm font-medium text-green-700 hover:text-gray-500 hover:underline"
             >
               Create account
             </Link>

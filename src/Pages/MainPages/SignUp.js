@@ -9,6 +9,7 @@ const SignUp = () => {
   const { createUser, updateUser, googleUser, facebookUser } =
     useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
+  const [activeBtn, setActiveBtn] = useState(false);
   const navigate = useNavigate();
 
   // Create an account
@@ -51,7 +52,7 @@ const SignUp = () => {
         form.reset();
         updateUserInfo(name, imageURL);
         setErrorMessage("");
-        navigate('/');
+        navigate("/");
         toast.success("Account has been registered successfully!!!", {
           autoClose: 2000,
         });
@@ -66,8 +67,8 @@ const SignUp = () => {
   const updateUserInfo = (name, imageURL) => {
     updateUser(name, imageURL)
       .then(() => {
-        console.log('name and image URL are added');
-        setErrorMessage('');
+        console.log("name and image URL are added");
+        setErrorMessage("");
       })
       .catch((err) => {
         console.error(err);
@@ -78,44 +79,50 @@ const SignUp = () => {
   // add google user
   const handleGoogleUser = () => {
     googleUser()
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-      setErrorMessage("");
-      navigate('/');
-      toast.success("Account has been registered successfully through Google!!!", {
-        autoClose: 2000,
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setErrorMessage("");
+        navigate("/");
+        toast.success(
+          "Account has been registered successfully through Google!!!",
+          {
+            autoClose: 2000,
+          }
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMessage(err.message);
       });
-    })
-    .catch((err) => {
-      console.error(err);
-      setErrorMessage(err.message);
-    });
-  }
+  };
 
   // add facebook user
   const handleFacebookUser = () => {
     facebookUser()
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-      setErrorMessage("");
-      navigate('/');
-      toast.success("Account has been registered successfully through Facebook!!!", {
-        autoClose: 2000,
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setErrorMessage("");
+        navigate("/");
+        toast.success(
+          "Account has been registered successfully through Facebook!!!",
+          {
+            autoClose: 2000,
+          }
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMessage(err.message);
       });
-    })
-    .catch((err) => {
-      console.error(err);
-      setErrorMessage(err.message);
-    });
-  }
+  };
 
   return (
     <div className="mt-36 mb-24 flex justify-center">
-      <div class="w-96 bg-white rounded-sm shadow-xl p-4 sm:p-6 md:p-8">
+      <div className="w-96 bg-white rounded-sm shadow-xl p-4 sm:p-6 md:p-8">
         <form onSubmit={handleRegistration}>
-          <h5 class="text-2xl text-center font-semibold text-green-700 mb-4">
+          <h5 className="text-2xl text-center font-semibold text-green-700 mb-4">
             Register an account
           </h5>
           <div>
@@ -127,8 +134,8 @@ const SignUp = () => {
           </div>
           <div className="mb-4">
             <label
-              for="name"
-              class="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="name"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Full Name <span className="text-red-700">*</span>
             </label>
@@ -136,15 +143,15 @@ const SignUp = () => {
               type="text"
               name="name"
               id="name"
-              class="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
+              className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
               placeholder="first / last"
               required
             />
           </div>
           <div className="mb-4">
             <label
-              for="url"
-              class="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="url"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Image URL <span className="text-red-700">*</span>
             </label>
@@ -152,15 +159,15 @@ const SignUp = () => {
               type="text"
               name="imgUrl"
               id="url"
-              class="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
+              className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
               placeholder="photo link..."
               required
             />
           </div>
           <div className="mb-4">
             <label
-              for="email"
-              class="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Email <span className="text-red-700">*</span>
             </label>
@@ -168,15 +175,15 @@ const SignUp = () => {
               type="email"
               name="email"
               id="email"
-              class="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
+              className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
               placeholder="valid email"
               required
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label
-              for="password"
-              class="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Password <span className="text-red-700">*</span>
             </label>
@@ -185,13 +192,33 @@ const SignUp = () => {
               name="password"
               id="password"
               placeholder="******"
-              class="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
+              className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
               required
             />
           </div>
+          <div className="mb-6">
+            <input
+              onChange={(e) => setActiveBtn(!activeBtn)}
+              type="checkbox"
+              name="terms"
+              id="terms"
+              value={activeBtn}
+              className="focus:ring-green-700 bg-gray-300 border-transparent"
+            />
+            <label
+              htmlFor="terms"
+              className="text-sm ml-2 font-medium text-gray-900"
+            >
+              Agree with our Term & Conditions?
+            </label>
+          </div>
           <button
             type="submit"
-            class="w-full text-white bg-green-700 hover:bg-green-800 transition duration-300 font-medium px-3 py-2 text-center"
+            disabled={!activeBtn}
+            title={
+              activeBtn ? undefined : "Please check the terms & conditions box"
+            }
+            className="w-full text-white bg-green-700 disabled:bg-green-700 hover:bg-green-800 transition duration-300 font-medium px-3 py-2 text-center"
           >
             Register
           </button>
@@ -220,11 +247,11 @@ const SignUp = () => {
             </button>
           </div>
 
-          <div class="text-sm font-medium text-gray-900 mt-4 text-center">
+          <div className="text-sm font-medium text-gray-900 mt-4 text-center">
             Already have an account?{" "}
             <Link
               to="/login"
-              class="text-sm font-medium text-green-700 hover:text-gray-500 hover:underline"
+              className="text-sm font-medium text-green-700 hover:text-gray-500 hover:underline"
             >
               Go to login
             </Link>
