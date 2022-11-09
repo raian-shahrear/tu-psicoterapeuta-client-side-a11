@@ -1,23 +1,79 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { UserContext } from "../../Contexts/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const {signInUser, resetPassword, googleUser, facebookUser} = useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const navigate = useNavigate();
+
+  // Login user
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signInUser(email, password)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      form.reset();
+      setErrorMessage('');
+      // navigate(from, {replace: true});
+      toast.success("Successfully Log in!!!", {autoClose: 2000});
+    })
+    .catch(err => {
+      console.error(err);
+      setErrorMessage(err.message);
+    })
+  }
+
+  // reset password
+  const handleResetPass = () => {
+    if(email){
+      resetPassword(email)
+      .then(() => {
+        alert("Please check your email to reset password!!!");
+        setErrorMessage('');
+      })
+      .catch(err => {
+        console.error(err);
+        setErrorMessage(err.message);
+      })
+    }else{
+      setErrorMessage('Please provide an email');
+    }
+  } 
+
+  console.log(email)
   return (
     <div className="mt-36 mb-24 flex justify-center">
       <div class="w-96 bg-white rounded-sm shadow-xl p-4 sm:p-6 md:p-8">
-        <form>
-          <h5 class="text-2xl text-center font-semibold text-green-700 mb-6">
+        <form onSubmit={handleLogin}>
+          <h5 class="text-2xl text-center font-semibold text-green-700 mb-4">
             Log in to the website
           </h5>
+          <div>
+            {errorMessage && (
+              <p className="text-sm text-red-500 mb-6 text-center">
+                Error: {errorMessage}
+              </p>
+            )}
+          </div>
           <div className="mb-4">
             <label
               for="email"
               class="block mb-2 text-sm font-medium text-gray-900"
             >
-              Your email
+              Your email <span className="text-red-700">*</span>
             </label>
             <input
+              onChange={(event)=> setEmail(event.target.value)}
               type="email"
               name="email"
               id="email"
@@ -31,7 +87,7 @@ const Login = () => {
               for="password"
               class="block mb-2 text-sm font-medium text-gray-900"
             >
-              Your password
+              Your password <span className="text-red-700">*</span>
             </label>
             <input
               type="password"
@@ -44,6 +100,7 @@ const Login = () => {
           </div>
           <div className="mb-6">
             <button
+              onClick={handleResetPass}
               type="button"
               class="text-sm font-medium text-green-700 hover:text-gray-500 hover:underline"
             >

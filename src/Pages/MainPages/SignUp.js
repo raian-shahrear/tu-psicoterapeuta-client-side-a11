@@ -1,21 +1,136 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "../../Contexts/AuthContext";
 
 const SignUp = () => {
+  const { createUser, updateUser, googleUser, facebookUser } =
+    useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  // Create an account
+  const handleRegistration = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const imageURL = form.imgUrl.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    // using Regex for email verification
+    if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email)) {
+      setErrorMessage("Please set email in right format");
+      return;
+    }
+    // using Regex for password verification
+    if (!/^(?=.*[A-Z])/.test(password)) {
+      setErrorMessage("Password should have at least one capital letter");
+      return;
+    }
+    if (!/^(?=.*\d)/.test(password)) {
+      setErrorMessage("Password should have at least one digit");
+      return;
+    }
+    if (!/^(?=.*[!#$%&@? "])/.test(password)) {
+      setErrorMessage("Password should have at least one special characters");
+      return;
+    }
+    if (!/^(?=.{6,})/.test(password)) {
+      setErrorMessage("Password should have at least 6 characters");
+      return;
+    }
+    setErrorMessage("");
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset();
+        updateUserInfo(name, imageURL);
+        setErrorMessage("");
+        navigate('/');
+        toast.success("Account has been registered successfully!!!", {
+          autoClose: 2000,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMessage(err.message);
+      });
+  };
+
+  // update user info
+  const updateUserInfo = (name, imageURL) => {
+    updateUser(name, imageURL)
+      .then(() => {
+        console.log('name and image URL are added');
+        setErrorMessage('');
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMessage(err.message);
+      });
+  };
+
+  // add google user
+  const handleGoogleUser = () => {
+    googleUser()
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      setErrorMessage("");
+      navigate('/');
+      toast.success("Account has been registered successfully through Google!!!", {
+        autoClose: 2000,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      setErrorMessage(err.message);
+    });
+  }
+
+  // add facebook user
+  const handleFacebookUser = () => {
+    facebookUser()
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      setErrorMessage("");
+      navigate('/');
+      toast.success("Account has been registered successfully through Facebook!!!", {
+        autoClose: 2000,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      setErrorMessage(err.message);
+    });
+  }
+
   return (
     <div className="mt-36 mb-24 flex justify-center">
       <div class="w-96 bg-white rounded-sm shadow-xl p-4 sm:p-6 md:p-8">
-        <form>
-          <h5 class="text-2xl text-center font-semibold text-green-700 mb-6">
+        <form onSubmit={handleRegistration}>
+          <h5 class="text-2xl text-center font-semibold text-green-700 mb-4">
             Register an account
           </h5>
+          <div>
+            {errorMessage && (
+              <p className="text-sm text-red-500 mb-6 text-center">
+                Error: {errorMessage}
+              </p>
+            )}
+          </div>
           <div className="mb-4">
             <label
               for="name"
               class="block mb-2 text-sm font-medium text-gray-900"
             >
-              Full Name
+              Full Name <span className="text-red-700">*</span>
             </label>
             <input
               type="text"
@@ -31,7 +146,7 @@ const SignUp = () => {
               for="url"
               class="block mb-2 text-sm font-medium text-gray-900"
             >
-              Image URL
+              Image URL <span className="text-red-700">*</span>
             </label>
             <input
               type="text"
@@ -47,7 +162,7 @@ const SignUp = () => {
               for="email"
               class="block mb-2 text-sm font-medium text-gray-900"
             >
-              Email
+              Email <span className="text-red-700">*</span>
             </label>
             <input
               type="email"
@@ -63,7 +178,7 @@ const SignUp = () => {
               for="password"
               class="block mb-2 text-sm font-medium text-gray-900"
             >
-              Password
+              Password <span className="text-red-700">*</span>
             </label>
             <input
               type="password"
@@ -90,12 +205,14 @@ const SignUp = () => {
           </div>
           <div className="flex justify-center space-x-4">
             <button
+              onClick={handleGoogleUser}
               aria-label="Log in with Google"
               className="p-3 text-xl text-gray-900 hover:text-green-700"
             >
               <FaGoogle />
             </button>
             <button
+              onClick={handleFacebookUser}
               aria-label="Log in with Facebook"
               className="p-3 text-xl text-gray-900 hover:text-green-700"
             >

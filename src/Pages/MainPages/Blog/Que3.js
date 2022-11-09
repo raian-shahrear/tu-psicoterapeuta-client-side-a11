@@ -47,7 +47,7 @@ const Que3 = () => {
                 3.
               </th>
               <td class="py-4 px-6">It is basically used on the client-side</td>
-              <td class="py-4 px-6">t is mostly used on the server-side</td>
+              <td class="py-4 px-6">It is mostly used on the server-side</td>
             </tr>
             <tr class="bg-white">
               <th

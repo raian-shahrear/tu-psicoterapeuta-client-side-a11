@@ -13,7 +13,7 @@ const Footer = () => {
     const email = event.target.email.value;
 
     if(email){
-      toast.success('Thanks for subscribe!', {autoClose: 2000})
+      toast.success('Thanks for subscribe!', {autoClose: 2000});
       event.target.reset();
     }
   }
@@ -162,11 +162,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="lg:w-11/12 mx-auto flex flex-col justify-between pt-5 pb-10 border-t border-gray-300 sm:flex-row">
+        <div className="lg:w-11/12 mx-auto flex flex-col-reverse justify-between pt-5 pb-10 border-t border-gray-300 md:flex-row">
           <p className="text-gray-600 text-sm">
             © Copyright 2022 <span className="custom-logo">Tu Psicoterapeuta.</span> All rights reserved.
           </p>
-          <div className="flex items-center mt-4 space-x-4 sm:mt-0">
+          <div className="flex items-center my-4 space-x-4 md:mt-0 ">
             <a
               href="https://twitter.com/login"
               target="_break"
