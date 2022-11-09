@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { UserContext } from "../../Contexts/AuthContext";
 import { toast } from "react-toastify";
@@ -10,7 +10,9 @@ const Login = () => {
     useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
 
   // Login user
   const handleLogin = (event) => {
@@ -25,7 +27,7 @@ const Login = () => {
         console.log(user);
         form.reset();
         setErrorMessage("");
-        // navigate(from, {replace: true});
+        navigate(from, {replace: true});
         toast.success("Successfully Log in!!!", { autoClose: 2000 });
       })
       .catch((err) => {
@@ -58,7 +60,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         setErrorMessage("");
-        // navigate(from, {replace: true});
+        navigate(from, {replace: true});
         toast.success(
           "Account has been registered successfully through Google!!!",
           {
@@ -79,7 +81,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         setErrorMessage("");
-        // navigate(from, {replace: true});
+        navigate(from, {replace: true});
         toast.success(
           "Account has been registered successfully through Facebook!!!",
           {

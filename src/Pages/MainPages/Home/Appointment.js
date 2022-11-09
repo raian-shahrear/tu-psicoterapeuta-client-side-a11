@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import appointmentImg from '../../../Resources/appointment/appointment.svg';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from "../../../Contexts/AuthContext";
 
 const Appointment = () => {
+  const {user} = useContext(UserContext);
 
   const handleAppointment = (event) => {
     event.preventDefault();
@@ -50,8 +52,10 @@ const Appointment = () => {
                   type="email"
                   name="email"
                   placeholder="email"
+                  defaultValue={user?.email ? user.email : ""}
                   className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
+                  readOnly
                 />
               </div>
               <div className="col-span-full sm:col-span-3">
