@@ -4,7 +4,6 @@ import { FaAngleLeft, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 const ServiceSection = ({ service }) => {
   const {
-    _id,
     serviceName,
     serviceImg,
     servicePrice,
@@ -35,7 +34,7 @@ const ServiceSection = ({ service }) => {
           <div className="relative px-4 py-16 mx-auto overflow-hidden sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="flex flex-col items-center justify-between xl:flex-row">
               <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-                <h2 className="max-w-lg mb-6 font-sans font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
+                <h2 className="max-w-lg mb-6 font-sans font-bold tracking-tight text-white text-4xl sm:leading-none">
                   {serviceName}
                 </h2>
                 <p className="max-w-xl mb-4 text-base text-justify text-gray-200 md:text-lg">
@@ -52,13 +51,15 @@ const ServiceSection = ({ service }) => {
               </div>
               <div className="w-full max-w-xl xl:px-8 xl:w-5/12">
                 <div className="bg-gray-300 rounded-sm shadow-gray-400 shadow-2xl p-7 sm:p-10 grid grid-cols-5">
-                  <ul className="flex flex-col gap-6 text-xl font-semibold capitalize col-span-2">
+                  <ul className="flex flex-col gap-4 text-xl font-semibold capitalize col-span-2">
+                    <li>Level:</li>
                     <li>Medium:</li>
                     <li>Duration:</li>
                     <li>Ratings:</li>
                     <li>Price:</li>
                   </ul>
-                  <ul className="flex flex-col gap-6 text-xl font-semibold capitalize col-span-3">
+                  <ul className="flex flex-col gap-4 text-xl font-semibold capitalize col-span-3">
+                    <li>All Levels</li>
                     <li>{serviceMedium}</li>
                     <li>{serviceDuration}</li>
                     <li className="flex items-center gap-1 text-yellow-400">

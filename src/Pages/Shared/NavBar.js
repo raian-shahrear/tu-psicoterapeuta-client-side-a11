@@ -4,6 +4,7 @@ import { UserContext } from "../../Contexts/AuthContext";
 import logo from "../../logo.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaUserAlt } from "react-icons/fa";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -172,13 +173,15 @@ const NavBar = () => {
                     to="/user-profile"
                     className="flex items-center gap-3 opacity-90 hover:opacity-100"
                   >
-                    {user?.photoURL && (
+                    {user?.photoURL ?
                       <img
                         src={user?.photoURL}
                         alt="userImg"
                         className="w-14 h-14 rounded-full"
                       />
-                    )}
+                      :
+                      <FaUserAlt className="text-5xl rounded-full bg-gray-300 p-2" />
+                    }
                   </Link>
                 </li>
               </>
@@ -292,16 +295,18 @@ const NavBar = () => {
                           <li>
                             <Link
                               onClick={() => setIsMenuOpen(false)}
-                              to="/user-profile"
+                              to="/"
                               className="flex items-center gap-3 opacity-90 hover:opacity-100"
                             >
-                              {user?.photoURL && (
+                              {user?.photoURL ? 
                                 <img
                                   src={user?.photoURL}
                                   alt="userImg"
                                   className="w-14 h-14 rounded-full"
                                 />
-                              )}
+                                :
+                                <FaUserAlt className="text-5xl rounded-full bg-gray-300 p-2" />
+                              }
                             </Link>
                           </li>
                           <li>
@@ -333,6 +338,7 @@ const NavBar = () => {
                           <li>
                             <NavLink
                               to="/blog"
+                              onClick={() => setIsMenuOpen(false)}
                               className={({ isActive }) =>
                                 isActive
                                   ? "tracking-wide text-green-700 font-semibold"

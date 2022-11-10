@@ -4,7 +4,7 @@ import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 
 const DisplayServices = ({service}) => {
-  const {_id, serviceName, serviceImg, servicePrice, serviceRating, serviceMedium, serviceDuration, serviceDetails} = service;
+  const {_id, serviceName, serviceImg, servicePrice, serviceRating, serviceDetails} = service;
 
   return (
     <div>
