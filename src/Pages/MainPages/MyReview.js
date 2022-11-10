@@ -13,16 +13,19 @@ import { Link } from "react-router-dom";
 import useTitle from "../../Hooks/useTitle";
 
 const MyReview = () => {
-  useTitle('My Review');
+  useTitle("My Review");
   const { user, signOutUser } = useContext(UserContext);
   const [userComments, setUserComments] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user-comments?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("user-access-token")}`,
-      },
-    })
+    fetch(
+      `https://tu-psicoterapeuta-server.vercel.app/user-comments?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("user-access-token")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return signOutUser();
@@ -37,9 +40,12 @@ const MyReview = () => {
       `Are you sure, you want to delete: ${item?.serviceName}?`
     );
     if (agree) {
-      fetch(`http://localhost:5000/comments/${item?._id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://tu-psicoterapeuta-server.vercel.app/comments/${item?._id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.data.deletedCount) {

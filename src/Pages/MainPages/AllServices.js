@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
 import useTitle from "../../Hooks/useTitle";
 import DisplayServices from "../Others/DisplayServices";
 
 const AllServices = () => {
   useTitle("All Services");
-  // const services = useLoaderData();
+  const [loading, setLoading] = useState(false);
   const [services, setServices] = useState([]);
   const [count, setCount] = useState(0);
   const [dataPerPage, setDataPerPage] = useState(3);
@@ -13,17 +12,25 @@ const AllServices = () => {
   const totalPages = Math.ceil(count / dataPerPage);
 
   useEffect(() => {
+    setLoading(true);
     fetch(
-      `http://localhost:5000/services?page=${currentPage}&dataSize=${dataPerPage}`
+      `https://tu-psicoterapeuta-server.vercel.app/services?page=${currentPage}&dataSize=${dataPerPage}`
     )
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         setServices(data.data);
         setCount(data.count);
       });
   }, [currentPage, dataPerPage]);
 
-  console.log(services, count);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center p-56">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-green-700"></div>
+      </div>
+    );
+  }
 
   return (
     <section className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 mb-24 mt-36">

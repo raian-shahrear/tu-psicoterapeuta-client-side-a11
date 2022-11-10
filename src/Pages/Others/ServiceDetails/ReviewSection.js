@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaUserAlt, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
-
 const ReviewSection = ({ service }) => {
   const { user } = useContext(UserContext);
   const [userComments, setUserComments] = useState([]);
@@ -32,7 +31,7 @@ const ReviewSection = ({ service }) => {
       uploadTime: currentTime.getTime(),
     };
 
-    fetch("http://localhost:5000/comment", {
+    fetch("https://tu-psicoterapeuta-server.vercel.app/comment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +45,7 @@ const ReviewSection = ({ service }) => {
             autoClose: 2000,
           });
           form.reset();
-          navigate('/all-services')
+          navigate("/all-services");
         }
       })
       .catch((err) => {
@@ -55,7 +54,9 @@ const ReviewSection = ({ service }) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/comments?serviceId=${_id}`)
+    fetch(
+      `https://tu-psicoterapeuta-server.vercel.app/comments?serviceId=${_id}`
+    )
       .then((res) => res.json())
       .then((data) => setUserComments(data.data));
   }, [_id]);

@@ -4,9 +4,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useTitle from "../../Hooks/useTitle";
 
-
 const EditReview = () => {
-  useTitle('Edit Review')
+  useTitle("Edit Review");
   const comment = useLoaderData();
   const [updateComment, setUpdateComment] = useState(comment);
   const navigate = useNavigate();
@@ -14,21 +13,24 @@ const EditReview = () => {
   const handleEditComment = (event) => {
     event.preventDefault();
 
-    fetch(`http://localhost:5000/comments/${comment.data._id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updateComment),
-    })
-    .then(res => res.json())
-      .then(data => {
-        if(data.data.modifiedCount){
+    fetch(
+      `https://tu-psicoterapeuta-server.vercel.app/comments/${comment.data._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateComment),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data.modifiedCount) {
           toast.success("Comment update successfully!", { autoClose: 2000 });
-          navigate('/')
+          navigate("/");
         }
       })
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err));
   };
 
   const handleChange = (event) => {

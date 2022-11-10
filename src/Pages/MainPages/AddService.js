@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useTitle from "../../Hooks/useTitle";
 
 const AddService = () => {
-  useTitle('Add Service');
+  useTitle("Add Service");
   const handleAddService = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -26,7 +26,7 @@ const AddService = () => {
       serviceDetails: details,
     };
 
-    fetch("http://localhost:5000/service", {
+    fetch("https://tu-psicoterapeuta-server.vercel.app/service", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const AddService = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data.data.acknowledged) {
+        if (data.data.acknowledged) {
           toast.success("Service is added successfully!", { autoClose: 2000 });
           form.reset();
         }
