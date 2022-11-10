@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../Contexts/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaUserAlt, FaStar, FaStarHalfAlt } from "react-icons/fa";
+
 
 const ReviewSection = ({ service }) => {
   const { user } = useContext(UserContext);
   const [userComments, setUserComments] = useState([]);
+  const navigate = useNavigate();
   const { _id, serviceName, serviceImg, servicePrice } = service;
 
   const handleComment = (event) => {
@@ -15,6 +17,7 @@ const ReviewSection = ({ service }) => {
     const form = event.target;
     const rating = form.rating.value;
     const comment = form.comment.value;
+    const currentTime = new Date();
 
     const myComment = {
       myRating: rating,
@@ -26,6 +29,7 @@ const ReviewSection = ({ service }) => {
       serviceName,
       serviceImg,
       servicePrice,
+      uploadTime: currentTime.getTime(),
     };
 
     fetch("http://localhost:5000/comment", {
@@ -42,6 +46,7 @@ const ReviewSection = ({ service }) => {
             autoClose: 2000,
           });
           form.reset();
+          navigate('/all-services')
         }
       })
       .catch((err) => {
@@ -54,7 +59,6 @@ const ReviewSection = ({ service }) => {
       .then((res) => res.json())
       .then((data) => setUserComments(data.data));
   }, [_id]);
-
 
   return (
     <section>
@@ -132,43 +136,44 @@ const ReviewSection = ({ service }) => {
           <hr />
         </div>
       )}
-
-      <div className="mt-48 sm:mt-16 md:mt-14">
-        {user?.uid && <hr className="mb-10" />}
-        <h4 className="mb-6 text-2xl font-semibold text-green-700">Client's Comments</h4>
-        {userComments.map((uc) => (
-          <div key={uc._id} className="">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center gap-3 mb-3 border-b pb-3">
-              <div className="flex items-center gap-4 md:col-span-1">
-                {uc?.myPhoto ? (
-                  <img
-                    src={uc?.myPhoto}
-                    alt="user"
-                    className="w-20 h-20 rounded-full"
-                  />
-                ) : (
-                  <FaUserAlt className="text-5xl rounded-full bg-gray-200 p-2" />
-                )}
-                <div className="font-medium">
-                  <p>{uc?.myName}</p>
-                  <p className="text-sm">{uc?.myEmail}</p>
-                  <p className="flex text-sm items-center gap-1 text-yellow-400 mt-2">
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStarHalfAlt />
-                    <span className="ml-2">{uc?.myRating}</span>
-                  </p>
+      {userComments && (
+        <div className="mt-48 sm:mt-16 md:mt-14">
+          {user?.uid && <hr className="mb-10" />}
+          <h4 className="mb-6 text-2xl font-semibold text-green-700">
+            Client's Comments
+          </h4>
+          {userComments.map((uc) => (
+            <div key={uc._id} className="">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center gap-3 mb-3 border-b pb-3">
+                <div className="flex items-center gap-4 md:col-span-1">
+                  {uc?.myPhoto ? (
+                    <img
+                      src={uc?.myPhoto}
+                      alt="user"
+                      className="w-20 h-20 rounded-full"
+                    />
+                  ) : (
+                    <FaUserAlt className="text-5xl rounded-full bg-gray-200 p-2" />
+                  )}
+                  <div className="font-medium">
+                    <p>{uc?.myName}</p>
+                    <p className="text-sm">{uc?.myEmail}</p>
+                    <p className="flex text-sm items-center gap-1 text-yellow-400 mt-2">
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStarHalfAlt />
+                      <span className="ml-2">{uc?.myRating}</span>
+                    </p>
+                  </div>
                 </div>
+                <p className="md:col-span-2 lg:grid-cols-3">{uc?.myComment}</p>
               </div>
-              <p className="md:col-span-2 lg:grid-cols-3">
-                {uc?.myComment}
-              </p>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
