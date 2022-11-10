@@ -12,14 +12,23 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
 const MyReview = () => {
-  const { user } = useContext(UserContext);
+  const { user, signOutUser } = useContext(UserContext);
   const [userComments, setUserComments] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user-comments?email=${user?.email}`)
-      .then((res) => res.json())
+    fetch(`http://localhost:5000/user-comments?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('user-access-token')}`
+      }
+    })
+      .then((res) => {
+        if(res.status === 401 || res.status === 403){
+          return signOutUser();
+        }
+        return res.json();
+      })
       .then((data) => setUserComments(data.data));
-  }, [user?.email]);
+  }, [user?.email, signOutUser]);
 
   
   const handleDelete = (item) => {

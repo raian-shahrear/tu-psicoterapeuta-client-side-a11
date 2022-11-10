@@ -13,6 +13,7 @@ const NavBar = () => {
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
+        localStorage.removeItem('user-access-token');
         toast.warning("Successfully Sign Out!", { autoClose: 2000 });
       })
       .catch((err) => console.error(err));

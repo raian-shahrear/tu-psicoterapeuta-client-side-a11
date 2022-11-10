@@ -4,6 +4,7 @@ import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { UserContext } from "../../Contexts/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { jwtToken } from "../Others/jwtToken";
 
 const Login = () => {
   const { signInUser, resetPassword, googleUser, facebookUser } =
@@ -25,6 +26,9 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        // set jwt token
+        jwtToken(user);
+        // End jwt token
         form.reset();
         setErrorMessage("");
         navigate(from, {replace: true});
@@ -59,6 +63,9 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        // set jwt token
+        jwtToken(user);
+        // End jwt token
         setErrorMessage("");
         navigate(from, {replace: true});
         toast.success(
@@ -80,6 +87,9 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        // set jwt token
+        jwtToken(user);
+        // End jwt token
         setErrorMessage("");
         navigate(from, {replace: true});
         toast.success(
