@@ -1,25 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 
-
-const DisplayServices = ({service}) => {
-  const {_id, serviceName, serviceImg, servicePrice, serviceRating, serviceDetails} = service;
+const DisplayServices = ({ service }) => {
+  const {
+    _id,
+    serviceName,
+    serviceImg,
+    servicePrice,
+    serviceRating,
+    serviceDetails,
+  } = service;
 
   return (
     <div>
       <div className="bg-white rounded-sm border border-gray-200 shadow-md">
-        <img
-          className="rounded-t-sm h-96 w-full"
-          src={serviceImg}
-          alt=""
-        />
+        <PhotoProvider>
+          <PhotoView src={serviceImg}>
+            <img className="rounded-t-sm h-96 w-full cursor-pointer" src={serviceImg} alt="" />
+          </PhotoView>
+        </PhotoProvider>
+
         <div className="p-5">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
             {serviceName}
           </h5>
           <p className="mb-3 font-medium text-gray-700">
-            {serviceDetails.length > 100 ? serviceDetails.slice(0, 99)+"..." : serviceDetails}
+            {serviceDetails.length > 100
+              ? serviceDetails.slice(0, 99) + "..."
+              : serviceDetails}
           </p>
           <div className="flex justify-between mb-6">
             <p className="font-semibold text-lg">Price: {servicePrice}</p>
