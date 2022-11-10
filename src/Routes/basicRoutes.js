@@ -32,7 +32,7 @@ const routes = createBrowserRouter([
       {
         path: '/all-services',
         element: <AllServices />,
-        loader: () => fetch("http://localhost:5000/services")
+        // loader: () => fetch("http://localhost:5000/services")
       },
       {
         path: '/add-service',
