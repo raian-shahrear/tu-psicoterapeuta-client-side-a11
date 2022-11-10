@@ -10,19 +10,21 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import useTitle from "../../Hooks/useTitle";
 
 const MyReview = () => {
+  useTitle('My Review');
   const { user, signOutUser } = useContext(UserContext);
   const [userComments, setUserComments] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/user-comments?email=${user?.email}`, {
       headers: {
-        authorization: `Bearer ${localStorage.getItem('user-access-token')}`
-      }
+        authorization: `Bearer ${localStorage.getItem("user-access-token")}`,
+      },
     })
       .then((res) => {
-        if(res.status === 401 || res.status === 403){
+        if (res.status === 401 || res.status === 403) {
           return signOutUser();
         }
         return res.json();
@@ -30,7 +32,6 @@ const MyReview = () => {
       .then((data) => setUserComments(data.data));
   }, [user?.email, signOutUser]);
 
-  
   const handleDelete = (item) => {
     const agree = window.confirm(
       `Are you sure, you want to delete: ${item?.serviceName}?`
@@ -55,64 +56,72 @@ const MyReview = () => {
   };
 
   return (
-    <div className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0">
-      <div className="my-44">
-        <h4 className="mb-10 text-center text-4xl font-semibold text-green-700">
-          My Reviews
+    <div className="lg:w-11/12 mx-auto px-4 md:px-24 lg:px-0 my-44">
+      {userComments.length === 0 ? (
+        <h4 className="py-20 text-center text-4xl font-semibold text-green-700">
+          No Review Has Been Added
         </h4>
-        {userComments.map((uc) => (
-          <div key={uc?._id} className="">
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-center gap-14 lg:gap-10 mb-3 border-b pb-3">
-              <div className="flex flex-col items-center gap-4">
-                {uc?.myPhoto ? (
-                  <img
-                    src={uc?.myPhoto}
-                    alt="user"
-                    className="w-20 h-20 rounded-full"
-                  />
-                ) : (
-                  <FaUserAlt className="text-5xl rounded-full bg-gray-200 p-2" />
-                )}
-                <div className="font-medium text-center">
-                  <p>{uc?.myName}</p>
-                  <p className="text-sm">{uc?.myEmail}</p>
-                  <p className="flex justify-center text-sm items-center gap-1 text-yellow-400 mt-2">
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStarHalfAlt />
-                    <span className="ml-2">{uc?.myRating}</span>
-                  </p>
+      ) : (
+        <div>
+          <h4 className="mb-10 text-center text-4xl font-semibold text-green-700">
+            My Reviews
+          </h4>
+          {userComments.map((uc) => (
+            <div key={uc?._id}>
+              <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-center gap-14 lg:gap-10 mb-3 border-b pb-3">
+                <div className="flex flex-col items-center gap-4">
+                  {uc?.myPhoto ? (
+                    <img
+                      src={uc?.myPhoto}
+                      alt="user"
+                      className="w-20 h-20 rounded-full"
+                    />
+                  ) : (
+                    <FaUserAlt className="text-5xl rounded-full bg-gray-200 p-2" />
+                  )}
+                  <div className="font-medium text-center">
+                    <p>{uc?.myName}</p>
+                    <p className="text-sm">{uc?.myEmail}</p>
+                    <p className="flex justify-center text-sm items-center gap-1 text-yellow-400 mt-2">
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStarHalfAlt />
+                      <span className="ml-2">{uc?.myRating}</span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="md:col-span-2 lg:col-span-3">
-                <p className="text-lg font-semibold mb-2">{uc?.serviceName} </p>
-                <p className="text-sm text-justify">{uc?.myComment}</p>
-              </div>
-              <div className="flex flex-col items-start justify-center gap-3 ml-0 lg:ml-5">
-                <Link to={`/edit-comment/${uc?._id}`}>
+                <div className="md:col-span-2 lg:col-span-3">
+                  <p className="text-lg font-semibold mb-2">
+                    {uc?.serviceName}{" "}
+                  </p>
+                  <p className="text-sm text-justify">{uc?.myComment}</p>
+                </div>
+                <div className="flex flex-col items-start justify-center gap-3 ml-0 lg:ml-5">
+                  <Link to={`/edit-comment/${uc?._id}`}>
+                    <button
+                      title="Edit"
+                      className="bg-white hover:bg-gray-100 rounded-xl py-3 px-3 text-xl"
+                    >
+                      <FaEdit className="inline-block" />
+                      <small className="ml-3">Edit</small>
+                    </button>
+                  </Link>
                   <button
-                    title="Edit"
+                    onClick={() => handleDelete(uc)}
+                    title="Delete"
                     className="bg-white hover:bg-gray-100 rounded-xl py-3 px-3 text-xl"
                   >
-                    <FaEdit className="inline-block" />
-                    <small className="ml-3">Edit</small>
+                    <FaTrashAlt className="inline-block" />
+                    <small className="ml-3">Delete</small>
                   </button>
-                </Link>
-                <button
-                  onClick={() => handleDelete(uc)}
-                  title="Delete"
-                  className="bg-white hover:bg-gray-100 rounded-xl py-3 px-3 text-xl"
-                >
-                  <FaTrashAlt className="inline-block" />
-                  <small className="ml-3">Delete</small>
-                </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

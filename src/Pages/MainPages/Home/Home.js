@@ -11,8 +11,10 @@ import Chart1 from "./ServiceCharts/Chart1";
 import Chart2 from "./ServiceCharts/Chart2";
 import Chart3 from "./ServiceCharts/Chart3";
 import MiddleBanner from "./MiddleBanner";
+import useTitle from "../../../Hooks/useTitle";
 
 const Home = () => {
+  useTitle('Home');
   const services = useLoaderData();
 
   return (

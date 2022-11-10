@@ -4,8 +4,10 @@ import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../../Contexts/AuthContext";
+import useTitle from '../../Hooks/useTitle'
 
 const SignUp = () => {
+  useTitle('Register');
   const { createUser, updateUser, googleUser, facebookUser } =
     useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useTitle from "../../Hooks/useTitle";
 
 
 const EditReview = () => {
+  useTitle('Edit Review')
   const comment = useLoaderData();
   const [updateComment, setUpdateComment] = useState(comment);
   const navigate = useNavigate();

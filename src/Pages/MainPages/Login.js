@@ -5,8 +5,10 @@ import { UserContext } from "../../Contexts/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { jwtToken } from "../Others/jwtToken";
+import useTitle from '../../Hooks/useTitle'
 
 const Login = () => {
+  useTitle('Login');
   const { signInUser, resetPassword, googleUser, facebookUser } =
     useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");

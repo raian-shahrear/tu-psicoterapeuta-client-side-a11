@@ -6,8 +6,11 @@ import Que1 from "./Que1";
 import Que2 from "./Que2";
 import Que3 from "./Que3";
 import Que4 from "./Que4";
+import useTitle from "../../../Hooks/useTitle";
 
 const Blog = () => {
+  useTitle('Blog');
+
   return (
     <main className="mb-24 mt-24">
       <header className="flex bg-gray-50 lg:bg-gray-500 pt-10 relative">
