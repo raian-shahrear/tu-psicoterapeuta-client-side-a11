@@ -10,6 +10,7 @@ import MyReview from '../Pages/MainPages/MyReview';
 import Blog from "../Pages/MainPages/Blog/Blog";
 import ServiceDetails from "../Pages/Others/ServiceDetails/ServiceDetails";
 import PrivateRoute from "./PrivateRoute";
+import EditReview from "../Pages/MainPages/EditReview";
 
 
 const routes = createBrowserRouter([
@@ -45,6 +46,11 @@ const routes = createBrowserRouter([
         path: '/service-details/:id',
         element: <ServiceDetails />,
         loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+      },
+      {
+        path: '/edit-comment/:id',
+        element: <PrivateRoute><EditReview /></PrivateRoute>,
+        loader: ({params}) => fetch(`http://localhost:5000/comments/${params.id}`)
       },
       {
         path: '/blog',
