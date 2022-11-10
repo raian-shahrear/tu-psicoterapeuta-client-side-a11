@@ -55,6 +55,7 @@ const ReviewSection = ({ service }) => {
       .then((data) => setUserComments(data.data));
   }, [_id]);
 
+
   return (
     <section>
       {user?.uid ? (
@@ -151,7 +152,7 @@ const ReviewSection = ({ service }) => {
                 <div className="font-medium">
                   <p>{uc?.myName}</p>
                   <p className="text-sm">{uc?.myEmail}</p>
-                  <p className="flex text-sm items-center gap-1 text-yellow-400">
+                  <p className="flex text-sm items-center gap-1 text-yellow-400 mt-2">
                     <FaStar />
                     <FaStar />
                     <FaStar />
