@@ -1,24 +1,27 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { FaFacebookF, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { UserContext } from "../../Contexts/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { jwtToken } from "../Others/jwtToken";
-import useTitle from '../../Hooks/useTitle'
+import useTitle from "../../Hooks/useTitle";
 
 const Login = () => {
-  useTitle('Login');
+  useTitle("Login");
   const { signInUser, resetPassword, googleUser, facebookUser } =
     useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
+  const [isPassVisible, setISPassVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
 
   // Login user
   const handleLogin = (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
@@ -33,12 +36,14 @@ const Login = () => {
         // End jwt token
         form.reset();
         setErrorMessage("");
-        navigate(from, {replace: true});
-        toast.success("Successfully Log in!!!", { autoClose: 2000 });
+        navigate(from, { replace: true });
+        setIsLoading(false);
+        toast.success("Successfully Log in!", { autoClose: 2000 });
       })
       .catch((err) => {
         console.error(err);
         setErrorMessage(err.message);
+        setIsLoading(false);
       });
   };
 
@@ -47,7 +52,7 @@ const Login = () => {
     if (email) {
       resetPassword(email)
         .then(() => {
-          alert("Please check your email to reset password!!!");
+          alert("Please check your email to reset password!");
           setErrorMessage("");
         })
         .catch((err) => {
@@ -69,9 +74,9 @@ const Login = () => {
         jwtToken(user);
         // End jwt token
         setErrorMessage("");
-        navigate(from, {replace: true});
+        navigate(from, { replace: true });
         toast.success(
-          "Account has been registered successfully through Google!!!",
+          "Account has been registered successfully through Google!",
           {
             autoClose: 2000,
           }
@@ -93,9 +98,9 @@ const Login = () => {
         jwtToken(user);
         // End jwt token
         setErrorMessage("");
-        navigate(from, {replace: true});
+        navigate(from, { replace: true });
         toast.success(
-          "Account has been registered successfully through Facebook!!!",
+          "Account has been registered successfully through Facebook!",
           {
             autoClose: 2000,
           }
@@ -145,14 +150,22 @@ const Login = () => {
             >
               Your password <span className="text-red-700">*</span>
             </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="******"
-              className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
-              required
-            />
+            <div className="relative">
+              <input
+                type={isPassVisible ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="******"
+                className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
+                required
+              />
+              <div
+                onClick={() => setISPassVisible(!isPassVisible)}
+                className="absolute bottom-3.5 right-2 text-lg text-gray-900"
+              >
+                {isPassVisible ? <FaEye /> : <FaEyeSlash />}
+              </div>
+            </div>
           </div>
           <div className="mb-6">
             <button
@@ -163,13 +176,17 @@ const Login = () => {
               Lost Password?
             </button>
           </div>
-          <button
-            type="submit"
-            className="w-full text-white bg-green-700 hover:bg-green-800 transition duration-300 font-medium px-3 py-2 text-center"
-          >
-            Login
-          </button>
-
+          <div className="relative">
+            <button
+              type="submit"
+              className="w-full text-white bg-green-700 hover:bg-green-800 transition duration-300 font-medium px-3 py-2 text-center"
+            >
+              Login
+            </button>
+            {isLoading && (
+              <div className="absolute bottom-2 left-24 w-6 h-6 border-2 border-dashed rounded-full animate-spin border-gray-200"></div>
+            )}
+          </div>
           <div className="flex items-center pt-4 space-x-1 mt-4">
             <div className="flex-1 h-px sm:w-16 bg-gray-400"></div>
             <p className="px-3 text-sm font-medium text-gray-900">

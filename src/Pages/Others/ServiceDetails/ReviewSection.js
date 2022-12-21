@@ -2,21 +2,29 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../Contexts/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUserAlt, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 const ReviewSection = ({ service }) => {
   const { user } = useContext(UserContext);
   const [userComments, setUserComments] = useState([]);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { _id, serviceName, serviceImg, servicePrice } = service;
 
   const handleComment = (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const form = event.target;
-    const rating = form.rating.value;
+    const rating = parseFloat(form.rating.value);
     const comment = form.comment.value;
     const currentTime = new Date();
+
+    if (isNaN(rating) || rating > 5) {
+      setIsLoading(false);
+      return setError("Rating must be a number or between 5!");
+    }
 
     const myComment = {
       myRating: rating,
@@ -46,10 +54,12 @@ const ReviewSection = ({ service }) => {
           });
           form.reset();
           navigate("/all-services");
+          setIsLoading(false);
         }
       })
       .catch((err) => {
         console.error("Error:", err);
+        setIsLoading(false);
       });
   };
 
@@ -97,6 +107,11 @@ const ReviewSection = ({ service }) => {
                   className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full px-2.5 py-5"
                   required
                 />
+                {error && (
+                  <p className="text-red-500 text-center">
+                    <small>{error}</small>
+                  </p>
+                )}
               </div>
               <div className="col-span-full sm:col-span-4 md:col-span-5">
                 <label htmlFor="comment" className="text-sm">
@@ -111,12 +126,15 @@ const ReviewSection = ({ service }) => {
                   required
                 />
               </div>
-              <div>
+              <div className="relative">
                 <input
                   type="submit"
                   value="Submit"
-                  className="bg-green-700 text-white font-medium py-2 px-8 cursor-pointer transition duration-300 hover:bg-green-800"
+                  className="bg-green-700 w-48 text-white font-medium py-2 px-8 cursor-pointer transition duration-300 hover:bg-green-800"
                 />
+                {isLoading && (
+                  <div className="absolute bottom-2 left-8 w-6 h-6 border-2 border-dashed rounded-full animate-spin border-gray-200"></div>
+                )}
               </div>
             </form>
           </div>
@@ -137,13 +155,13 @@ const ReviewSection = ({ service }) => {
           <hr />
         </div>
       )}
-      {userComments && (
+      {userComments.length > 0 && (
         <div className="mt-48 sm:mt-16 md:mt-14">
           {user?.uid && <hr className="mb-10" />}
           <h4 className="mb-6 text-2xl font-semibold text-green-700">
             Client's Comments
           </h4>
-          {userComments.map((uc) => (
+          {userComments?.map((uc) => (
             <div key={uc._id} className="">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center gap-3 mb-3 border-b pb-3">
                 <div className="flex items-center gap-4 md:col-span-1">

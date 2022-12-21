@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useTitle from "../../Hooks/useTitle";
 
 const AddService = () => {
   useTitle("Add Service");
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleAddService = (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const image = form.image.value;
-    const price = form.price.value;
-    const rating = form.rating.value;
+    const price = parseFloat(form.price.value);
+    const rating = parseFloat(form.rating.value);
     const medium = form.medium.value;
-    const duration = form.duration.value;
+    const duration = parseInt(form.duration.value);
     const details = form.details.value;
+    if (isNaN(price)) {
+      setIsLoading(false);
+      return setError("Price must be a number!");
+    }
+    if (isNaN(rating) || rating > 5) {
+      setIsLoading(false);
+      return setError("Rating must be a number or between 5!");
+    }
 
     const service = {
       serviceName: name,
@@ -38,10 +52,15 @@ const AddService = () => {
         if (data.data.acknowledged) {
           toast.success("Service is added successfully!", { autoClose: 2000 });
           form.reset();
+          setError(false);
+          setIsLoading(false);
+          navigate("/all-services");
         }
       })
       .catch((err) => {
         console.error("Error:", err);
+        setError(err.message);
+        setIsLoading(false);
       });
   };
 
@@ -50,6 +69,7 @@ const AddService = () => {
       <h2 className="text-4xl font-semibold text-green-700 mb-6">
         Add A Service
       </h2>
+      {error && <p className="text-red-500 text-center">{error}</p>}
       <section className="text-gray-700">
         <form
           onSubmit={handleAddService}
@@ -91,7 +111,7 @@ const AddService = () => {
                   id="price"
                   type="text"
                   name="price"
-                  defaultValue={"$ price"}
+                  placeholder="input price in number"
                   className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
                 />
@@ -113,14 +133,16 @@ const AddService = () => {
                 <label htmlFor="medium" className="text-sm">
                   Service Medium <span className="text-red-700">*</span>
                 </label>
-                <input
+                <select
                   id="medium"
                   name="medium"
                   type="text"
-                  placeholder="online / offline"
                   className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
-                />
+                >
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
+                </select>
               </div>
               <div className="col-span-full sm:col-span-2">
                 <label htmlFor="time-duration" className="text-sm">
@@ -128,9 +150,10 @@ const AddService = () => {
                 </label>
                 <input
                   id="time-duration"
-                  type="text"
+                  type="number"
                   name="duration"
-                  placeholder="hour / day"
+                  min="5"
+                  placeholder="duration in day"
                   className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                   required
                 />
@@ -149,12 +172,15 @@ const AddService = () => {
                 />
               </div>
             </div>
-            <div>
+            <div className="relative">
               <input
                 type="submit"
                 value="Add Service"
-                className="bg-green-700 text-white font-medium py-2 px-3 cursor-pointer transition duration-300 hover:bg-green-800"
+                className="bg-green-700 w-72 text-white font-medium py-2 px-3 cursor-pointer transition duration-300 hover:bg-green-800"
               />
+              {isLoading && (
+                <div className="absolute bottom-2 left-14 w-6 h-6 border-2 border-dashed rounded-full animate-spin border-gray-200"></div>
+              )}
             </div>
           </fieldset>
         </form>

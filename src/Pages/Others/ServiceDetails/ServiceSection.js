@@ -61,7 +61,7 @@ const ServiceSection = ({ service }) => {
                   <ul className="flex flex-col gap-4 text-xl font-semibold capitalize col-span-3">
                     <li>All Levels</li>
                     <li>{serviceMedium}</li>
-                    <li>{serviceDuration}</li>
+                    <li>{serviceDuration} {`${serviceDuration > 1 ? "Days" : "Day"}`}</li>
                     <li className="flex items-center gap-1 text-yellow-400">
                       <FaStar />
                       <FaStar />
@@ -70,7 +70,7 @@ const ServiceSection = ({ service }) => {
                       <FaStarHalfAlt />
                       <span className="ml-2">{serviceRating}</span>
                     </li>
-                    <li>{servicePrice}</li>
+                    <li>${servicePrice}</li>
                   </ul>
                 </div>
               </div>

@@ -12,7 +12,7 @@ const Blog = () => {
   useTitle('Blog');
 
   return (
-    <main className="mb-24 mt-24">
+    <main className="mb-24 mt-[85px]">
       <header className="flex bg-gray-50 lg:bg-gray-500 pt-10 relative">
         <img src={img1} alt="blogImg" className="w-full h-96" />
         <img src={img2} alt="blogImg" className="w-full h-96 hidden lg:block" />

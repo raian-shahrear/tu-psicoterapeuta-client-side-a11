@@ -33,7 +33,7 @@ const DisplayServices = ({ service }) => {
               : serviceDetails}
           </p>
           <div className="flex justify-between mb-6">
-            <p className="font-semibold text-lg">Price: {servicePrice}</p>
+            <p className="font-semibold text-lg">Price: ${servicePrice}</p>
             <p className="font-semibold text-lg text-yellow-400 flex items-center gap-1">
               <FaStar />
               <FaStar />
