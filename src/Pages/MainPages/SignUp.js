@@ -258,7 +258,7 @@ const SignUp = () => {
           <div className="relative">
             <button
               type="submit"
-              className="w-full text-white bg-green-700 disabled:bg-green-700 hover:bg-green-800 transition duration-300 font-medium px-3 py-2 text-center"
+              className="w-full text-white bg-green-700 hover:bg-green-800 transition duration-300 font-medium px-3 py-2 text-center"
             >
               Register
             </button>

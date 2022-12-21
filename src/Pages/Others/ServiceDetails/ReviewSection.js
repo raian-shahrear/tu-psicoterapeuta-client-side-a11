@@ -53,7 +53,7 @@ const ReviewSection = ({ service }) => {
             autoClose: 2000,
           });
           form.reset();
-          navigate("/all-services");
+          navigate("/my-review");
           setIsLoading(false);
         }
       })
