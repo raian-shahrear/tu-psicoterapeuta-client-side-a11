@@ -94,7 +94,7 @@ const SignUp = () => {
   const updateUserInfo = (name, imageURL) => {
     updateUser(name, imageURL)
       .then(() => {
-        console.log("name and image URL are added");
+        console.log("name and image are added");
         setErrorMessage("");
         setIsLoading(false);
       })
@@ -157,7 +157,7 @@ const SignUp = () => {
           <div>
             {errorMessage && (
               <p className="text-sm text-red-500 mb-6 text-center">
-                Error: {errorMessage}
+                {errorMessage}
               </p>
             )}
           </div>
@@ -276,14 +276,14 @@ const SignUp = () => {
           <div className="flex justify-center space-x-4">
             <button
               onClick={handleGoogleUser}
-              aria-label="Log in with Google"
+              aria-label="sign up with Google"
               className="p-3 text-xl text-gray-900 hover:text-green-700"
             >
               <FaGoogle />
             </button>
             <button
               onClick={handleFacebookUser}
-              aria-label="Log in with Facebook"
+              aria-label="sign up with Facebook"
               className="p-3 text-xl text-gray-900 hover:text-green-700"
             >
               <FaFacebookF />

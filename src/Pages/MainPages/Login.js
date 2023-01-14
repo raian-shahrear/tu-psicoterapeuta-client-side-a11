@@ -60,7 +60,7 @@ const Login = () => {
           setErrorMessage(err.message);
         });
     } else {
-      setErrorMessage("Please provide an valid email");
+      setErrorMessage("Please provide a valid email");
     }
   };
 
@@ -76,7 +76,7 @@ const Login = () => {
         setErrorMessage("");
         navigate(from, { replace: true });
         toast.success(
-          "Account has been registered successfully through Google!",
+          "Successfully Login through Google!",
           {
             autoClose: 2000,
           }
@@ -100,7 +100,7 @@ const Login = () => {
         setErrorMessage("");
         navigate(from, { replace: true });
         toast.success(
-          "Account has been registered successfully through Facebook!",
+          "Successfully Login through Facebook!",
           {
             autoClose: 2000,
           }
@@ -138,6 +138,7 @@ const Login = () => {
               type="email"
               name="email"
               id="email"
+              defaultValue="raka@gmail.com"
               className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
               placeholder="valid email"
               required
@@ -156,6 +157,7 @@ const Login = () => {
                 name="password"
                 id="password"
                 placeholder="******"
+                defaultValue="123ABC$"
                 className="bg-gray-200 border border-transparent text-gray-700 text-sm focus:ring-green-700 focus:border-green-700 focus:bg-gray-50 block w-full p-2.5"
                 required
               />
